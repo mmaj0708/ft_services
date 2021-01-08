@@ -3,7 +3,7 @@
 FROM alpine:latest
 
 # install nginx
-RUN apk update && apk add nginx && apk add openrc
+RUN apk update && apk add nginx && apk add openrc && apk add wget
 RUN adduser -D -g 'www' www
 RUN mkdir /www
 RUN chown -R www:www /var/lib/nginx
@@ -17,9 +17,15 @@ RUN touch /run/openrc/softlevel
 RUN apk add php7 php7-fpm php7-opcache
 # RUN add php7-gd php7-mysqli php7-zlib php7-curl #not necessarily useful
 
+# install wordpress
+RUN wget http://wordpress.org/latest.tar.gz
+RUN tar -xzvf latest.tar.gz
+RUN mv wordpress /var/www
+RUN rm latest.tar.gz
 
 COPY /srcs/nginx.conf /etc/nginx/
 COPY /srcs/index.html /www/
 COPY /srcs/run_serv.sh /.
+COPY /srcs/test.php /www 
 # CMD ["/bin/ash", "run_serv.sh"]
 CMD ["/bin/ash"]
