@@ -10,11 +10,16 @@ RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www
 RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 RUN mkdir -p /run/nginx
-
-COPY nginx.conf /etc/nginx/
-COPY index.html /www/
-COPY run_serv.sh /.
 RUN openrc
 RUN touch /run/openrc/softlevel
-CMD ["/bin/ash", "run_serv.sh"]
-# CMD ["/bin/ash"]
+
+# install php7
+RUN apk add php7 php7-fpm php7-opcache
+# RUN add php7-gd php7-mysqli php7-zlib php7-curl #not necessarily useful
+
+
+COPY /srcs/nginx.conf /etc/nginx/
+COPY /srcs/index.html /www/
+COPY /srcs/run_serv.sh /.
+# CMD ["/bin/ash", "run_serv.sh"]
+CMD ["/bin/ash"]
