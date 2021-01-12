@@ -20,7 +20,7 @@ RUN apk add php7 php7-fpm php7-opcache
 # install wordpress
 RUN wget http://wordpress.org/latest.tar.gz
 RUN tar -xzvf latest.tar.gz
-RUN mv wordpress /var/www
+RUN mv wordpress /www
 RUN rm latest.tar.gz
 
 COPY /srcs/nginx.conf /etc/nginx/
