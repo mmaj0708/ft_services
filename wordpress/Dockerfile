@@ -27,5 +27,5 @@ COPY /srcs/nginx.conf /etc/nginx/
 COPY /srcs/index.html /www/
 COPY /srcs/run_serv.sh /.
 COPY /srcs/test.php /www 
-# CMD ["/bin/ash", "run_serv.sh"]
-CMD ["/bin/ash"]
+CMD ["/bin/ash", "run_serv.sh"]
+# CMD ["/bin/ash"]
