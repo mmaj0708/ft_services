@@ -14,8 +14,9 @@ RUN openrc
 RUN touch /run/openrc/softlevel
 
 # install php7
-RUN apk add php7 php7-fpm php7-opcache
-# RUN add php7-gd php7-mysqli php7-zlib php7-curl #not necessarily useful
+RUN apk add php7 php7-fpm php7-opcache \
+php7-gd php7-mysqli php7-zlib php7-curl \
+php7-mbstring php7-json php7-session
 
 # install wordpress
 RUN wget http://wordpress.org/latest.tar.gz

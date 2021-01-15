@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: wp-deployment
   labels:
-    app: wp-ctn
+    app: wp-ctn2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wp-ctn
+      app: wp-ctn2
   template:
     metadata:
       labels:
-        app: wp-ctn
+        app: wp-ctn2
     spec:
       containers:
-      - name: wp-ctn
-        image: wp-ctn
+      - name: wp-ctn2
+        image: wp-ctn2
         imagePullPolicy: Never
         ports:
         - containerPort: 80
@@ -27,7 +27,7 @@ metadata:
     name: svc-test
 spec:
     selector:
-        app: wp-ctn
+        app: wp-ctn2
     type: LoadBalancer
     ports:
         -   name: http
