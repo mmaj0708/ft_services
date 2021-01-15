@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-maria
+  namespace: default
+  labels:
+    app: dep-maria
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  serviceName: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mysql-ctn
+        imagePullPolicy: Never
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - /bin/ash
+        #     - /root/livenessprobe.sh
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: wordpressuser
+            #   secretKeyRef:
+            #     name: global-secret
+            #     key: wp_user_password
+        #   - name: ADMIN_PASS
+        #     value: 
+            #   secretKeyRef:
+            #     name: global-secret
+            #     key: maria_admin_pass
+        volumeMounts:
+          - name: pv-maria
+            mountPath: /var/lib/mysql
+        ports:
+        - containerPort: 3306
+      volumes:
+        - name: pv-maria
+          persistentVolumeClaim:
+            claimName: pvc-maria
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-mariadb
+spec:
+  selector:
+    app: mariadb
+  type: ClusterIP
+  ports:
+  - port: 3306
+    targetPort: 3306
