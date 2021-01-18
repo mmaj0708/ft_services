@@ -7,6 +7,11 @@ RUN apk add mysql mysql-client
 
 RUN openrc
 RUN touch /run/openrc/softlevel
+RUN adduser -D -g 'www' www
+
+RUN mkdir backup_mysql
+RUN chmod -R 755 backup_mysql
+RUN chown -R www:www backup_mysql
 
 COPY srcs/setup.sh /.
 COPY srcs/run_serv.sh /.
