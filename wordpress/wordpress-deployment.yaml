@@ -116,7 +116,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wp-deployment
+  name: wp-dpl
   labels:
     app: wp-ctn2
 spec:
@@ -133,6 +133,12 @@ spec:
       - name: wp-ctn2
         image: wp-ctn2
         imagePullPolicy: Never
+      env:
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
         ports:
         - containerPort: 80
 ---

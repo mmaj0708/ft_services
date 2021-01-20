@@ -1,13 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: wp-mysql
-    labels:
-        app: wordpress
+    name: svc-mysql
 spec:
   selector:
-    app: wordpress
-    tier: mysql
+    app: mysql
   type: ClusterIP
   ports:
   - port: 3306
@@ -32,7 +29,7 @@ metadata:
   name: mysql-pvc
   namespace: default
   labels:
-    app: wordpress
+    app: mysql
 spec:
   accessModes:
   - ReadWriteOnce
@@ -100,22 +97,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wp-mysql
-  labels:
-    app: wordpress
+  name: mysql
 spec:
   selector:
     matchLabels:
-      app: wordpress
-      tier: mysql
+      app: mysql
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: wordpress
-        tier: mysql
+        app: mysql
     spec:
       containers:
       - name: mysql
