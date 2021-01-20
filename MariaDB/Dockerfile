@@ -19,6 +19,8 @@ COPY srcs/create_database.sql /.
 RUN /etc/init.d/mariadb setup
 RUN /etc/init.d/mariadb restart
 
+EXPOSE 3306
+
 # RUN mysql -u root -p < create_database.sql
 RUN sh setup.sh
 
