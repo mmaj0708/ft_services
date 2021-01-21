@@ -115,32 +115,42 @@
 
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: wp-dpl
-  labels:
+metadata: 
+  labels: 
     app: wp-ctn2
-spec:
+  name: wp-dpl
+spec: 
   replicas: 1
-  selector:
-    matchLabels:
+  selector: 
+    matchLabels: 
       app: wp-ctn2
-  template:
-    metadata:
-      labels:
+  template: 
+    metadata: 
+      labels: 
         app: wp-ctn2
-    spec:
-      containers:
-      - name: wp-ctn2
-        image: wp-ctn2
-        imagePullPolicy: Never
-      env:
-        - name: WORDPRESS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password
-        ports:
-        - containerPort: 80
+    spec: 
+      containers: 
+        - 
+          image: wp-ctn2
+          imagePullPolicy: Never
+          name: wp-ctn2
+          env: 
+          - 
+            name: DB_NAME
+            value: wordppress
+          - 
+            name: DB_USER
+            value: admin
+          - 
+            name: DB_PASSWORD
+            value: admin
+          - 
+            name: DB_HOST
+            value: mysql
+          ports: 
+          - 
+            containerPort: 80
+
 ---
 apiVersion: v1
 kind: Service

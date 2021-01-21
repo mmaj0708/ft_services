@@ -27,6 +27,9 @@ RUN rm latest.tar.gz
 COPY /srcs/nginx.conf /etc/nginx/
 COPY /srcs/index.html /www/
 COPY /srcs/run_serv.sh /.
-COPY /srcs/test.php /www 
+COPY /srcs/test.php /www
+
+EXPOSE 80
+
 CMD ["/bin/ash", "run_serv.sh"]
 # CMD ["/bin/ash"]

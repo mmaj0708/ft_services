@@ -116,29 +116,23 @@ spec:
         imagePullPolicy: Never
         env:
         - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: root-pass
-              key: password
+          value: root
 
         - name: MYSQL_DATABASE
-          value: mysql
+          value: wordpress
 
         - name: MYSQL_USER
-          value: mysql
+          value: admin
 
         - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password
+          value: admin
 
         ports:
         - containerPort: 3306
         volumeMounts:
-        - name: mysql-pv
-          mountPath: /var/lib/mysql
+          - name: mysql-pv
+            mountPath: /var/lib/mysql
       volumes:
-      - name: mysql-pv
-        persistentVolumeClaim:
-          claimName: mysql-pvc
+        - name: mysql-pv
+          persistentVolumeClaim:
+            claimName: mysql-pvc
