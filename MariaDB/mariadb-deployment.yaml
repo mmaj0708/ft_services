@@ -1,14 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: svc-mysql
+    name: mysql
+    labels:
+      app: mysql
 spec:
   selector:
     app: mysql
   type: ClusterIP
   ports:
   - port: 3306
-    targetPort: 3306
+
 # apiVersion: v1
 # kind: Service
 # metadata:
@@ -98,6 +100,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  labels:
+    app: mysql
 spec:
   selector:
     matchLabels:

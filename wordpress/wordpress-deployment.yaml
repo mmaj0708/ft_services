@@ -117,23 +117,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   labels: 
-    app: wp-ctn2
-  name: wp-dpl
+    app: wordpress
+  name: wordpress
 spec: 
   replicas: 1
   selector: 
     matchLabels: 
-      app: wp-ctn2
+      app: wordpress
   template: 
     metadata: 
       labels: 
-        app: wp-ctn2
+        app: wordpress
     spec: 
       containers: 
         - 
           image: wp-ctn2
           imagePullPolicy: Never
-          name: wp-ctn2
+          name: wordpress
           env: 
           - 
             name: DB_NAME
@@ -155,10 +155,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: svc-test
+    name: wordpress
 spec:
     selector:
-        app: wp-ctn2
+        app: wordpress
     type: LoadBalancer
     ports:
         -   name: http
