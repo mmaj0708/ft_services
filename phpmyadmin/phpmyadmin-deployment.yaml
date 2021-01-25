@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: phpmyadmin
+  name: phpmyadmin
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: phpmyadmin
+  template: 
+    metadata: 
+      labels: 
+        app: phpmyadmin
+    spec: 
+      containers: 
+        - 
+          image: pma
+          imagePullPolicy: Never
+          name: phpmyadmin
+          env: 
+          - 
+            name: DB_NAME
+            value: wordppress
+          - 
+            name: DB_USER
+            value: admin
+          - 
+            name: DB_PASSWORD
+            value: admin
+          - 
+            name: DB_HOST
+            value: mysql
+          ports: 
+          - 
+            containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: phpmyadmin
+spec:
+    selector:
+        app: phpmyadmin
+    type: LoadBalancer
+    ports:
+        -   name: http
+            protocol: TCP
+            port: 5000
+            targetPort: 5000

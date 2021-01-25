@@ -25,7 +25,7 @@ RUN mv wordpress /www
 RUN rm latest.tar.gz
 
 COPY /srcs/nginx.conf /etc/nginx/
-COPY /srcs/index.html /www/
+COPY /srcs/index.html /www
 COPY /srcs/run_serv.sh /.
 COPY /srcs/test.php /www
 

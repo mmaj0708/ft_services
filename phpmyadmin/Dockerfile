@@ -34,7 +34,7 @@ COPY /srcs/test.php /www
 
 RUN sh install.sh
 
-EXPOSE 5000
+# EXPOSE 5000
 
-# CMD ["/bin/ash", "run_serv.sh"]
-CMD ["/bin/ash"]
+CMD ["/bin/ash", "run_serv.sh"]
+# CMD ["/bin/ash"]
