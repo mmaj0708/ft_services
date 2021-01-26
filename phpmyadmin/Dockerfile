@@ -31,6 +31,7 @@ COPY /srcs/run_serv.sh /.
 COPY /srcs/install.sh /.
 COPY /srcs/index.html /www
 COPY /srcs/test.php /www
+COPY /srcs/config.inc.php ./
 
 RUN sh install.sh
 

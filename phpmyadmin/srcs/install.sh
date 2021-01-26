@@ -12,3 +12,5 @@ tar zxvf phpMyAdmin-5.0.2-all-languages.tar.gz
 rm phpMyAdmin-5.0.2-all-languages.tar.gz
 mv phpMyAdmin-5.0.2-all-languages phpmyadmin
 mv phpmyadmin /www
+rm /www/phpmyadmin/config.sample.inc.php
+mv /config.inc.php /www/phpmyadmin
