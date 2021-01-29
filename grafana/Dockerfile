@@ -4,14 +4,15 @@ FROM alpine
 # COPY    srcs/run_serv.sh ./
 
 RUN		apk add vim
+ADD		srcs/datasources.yaml ./
 
 RUN		mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
 RUN		wget https://dl.grafana.com/oss/release/grafana-7.1.5.linux-amd64.tar.gz \
 		&& tar -zxvf grafana-7.1.5.linux-amd64.tar.gz \
 		&& mv grafana-7.1.5 grafana \
-		&& mv grafana /root 
-		# && mv /root/datasources.yaml /root/grafana/conf/provisioning/datasources \
+		&& mv grafana /root \
+		&& mv /datasources.yaml /root/grafana/conf/provisioning/datasources
 		# && mv /root/dashboard.yaml /root/grafana/conf/provisioning/dashboards \
 		# && mv /root/dashboard.json /root/grafana/conf/provisioning/dashboards \
 		# && apk add curl
