@@ -21,5 +21,7 @@ RUN		ln -s /root/grafana/bin/grafana-cli /usr/bin \
 
 COPY /srcs/run_serv.sh ./
 
+EXPOSE 3000
+
 CMD ["/bin/ash", "run_serv.sh"]
 # CMD ["/bin/ash"]

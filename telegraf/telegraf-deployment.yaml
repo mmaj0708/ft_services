@@ -52,10 +52,10 @@ spec:
 
         ports:
         - containerPort: 8125
-    #     volumeMounts:
-    #       - name: influxdb-pv
-    #         mountPath: /var/lib/influxdb
-    #   volumes:
-    #     - name: influxdb-pv
-    #       persistentVolumeClaim:
-    #         claimName: influxdb-pvc
+        volumeMounts:
+          - name: telegraf-endpoint
+            mountPath: "/var/run/docker.sock"
+      volumes:
+        - name: telegraf-endpoint
+          hostPath:
+            path: /var/run/docker.sock

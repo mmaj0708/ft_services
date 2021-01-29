@@ -11,5 +11,9 @@ RUN		wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.2_linux_amd6
 RUN     cp -rf /telegraf/usr/* /usr \
 		&& cp -rf /telegraf/etc/* /etc
 
-# CMD ["/bin/ash", "run_serv.sh"]
-CMD ["/bin/ash"]
+RUN		mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+
+EXPOSE 8125
+
+CMD ["/bin/ash", "run_serv.sh"]
+# CMD ["/bin/ash"]
