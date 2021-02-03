@@ -65,8 +65,8 @@ spec:
         # volumeMounts:
         #   - name: ftps-pv
         #     mountPath: /var/lib/mysql
-      volumes:
-        - name: ftps-pv
-          hostPath:
-            path: /home/user42/Bureau/42/ft_services_git/ftps/ftp
-            type: Directory
+      # volumes:
+      #   - name: ftps-pv
+      #     hostPath:
+      #       path: /home/user42/Bureau/42/ft_services_git/ftps/ftp
+      #       type: Directory
