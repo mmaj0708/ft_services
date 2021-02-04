@@ -34,6 +34,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: shared
     name: phpmyadmin
 spec:
     selector:
@@ -44,3 +46,4 @@ spec:
             protocol: TCP
             port: 5000
             targetPort: 5000
+    # loadBalancerIP: 172.17.0.4

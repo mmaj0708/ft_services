@@ -155,6 +155,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: shared
+      metallb.universe.tf/address-pool: ip-pools
     name: wordpress
 spec:
     selector:
@@ -163,5 +166,6 @@ spec:
     ports:
         -   name: http
             protocol: TCP
-            port: 80
-            targetPort: 80
+            port: 5050
+            targetPort: 5050
+    # loadBalancerIP: 172.17.0.4
