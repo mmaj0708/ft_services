@@ -149,7 +149,7 @@ spec:
             value: mysql
           ports: 
           - 
-            containerPort: 80
+            containerPort: 5050
 
 ---
 apiVersion: v1

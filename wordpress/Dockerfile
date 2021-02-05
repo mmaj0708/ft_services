@@ -29,7 +29,7 @@ COPY /srcs/index.html /www
 COPY /srcs/run_serv.sh /.
 COPY /srcs/test.php /www
 
-EXPOSE 80
+EXPOSE 5050
 
 CMD ["/bin/ash", "run_serv.sh"]
 # CMD ["/bin/ash"]
