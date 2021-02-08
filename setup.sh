@@ -76,12 +76,12 @@ sleep 5
 
 printf "========>Deploying images into cluster<===========\n\n"
 kubectl create -f ftps/ftps-deployment.yaml &> /dev/null
-kubectl create -f grafana/grafana-deployment.yaml &> /dev/null
 kubectl create -f influxDB/influxdb-deployment.yaml &> /dev/null
+kubectl create -f telegraf/telegraf-deployment.yaml &> /dev/null
+kubectl create -f grafana/grafana-deployment.yaml &> /dev/null
 kubectl create -f MariaDB/mariadb-deployment.yaml &> /dev/null
 kubectl create -f nginx/nginx-deployment.yaml &> /dev/null
 kubectl create -f phpmyadmin/phpmyadmin-deployment.yaml &> /dev/null
-kubectl create -f telegraf/telegraf-deployment.yaml &> /dev/null
 kubectl create -f wordpress/wordpress-deployment.yaml &> /dev/null
 
 printf "Launching Dashboard! *pewwwwiouuuu* (launching sound)\n"

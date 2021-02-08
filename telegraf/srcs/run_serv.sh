@@ -1,3 +1,3 @@
-telegraf --config /root/telegraf.conf
+telegraf --config ./telegraf.conf
 
 tail -f /dev/null
