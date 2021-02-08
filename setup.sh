@@ -21,7 +21,7 @@ printf "\n\n========>Cleaning Minikube!<===========\n\n\n"
 minikube delete
 
 # start minikube
-printf "========>Launching Minikube!<===========\n\n\n"
+printf "\n\n========>Launching Minikube!<===========\n\n\n"
 minikube start --driver=docker
 
 # get minikube (true) ip
@@ -30,7 +30,7 @@ CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].addre
 # deploy metallb
 # add "> /dev/null" to remove info in stdout 
 # attention a l'ordre!!
-printf "========>Deploying Metallb<===========\n\n\n"
+printf "\n\n========>Deploying Metallb<===========\n\n\n"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml 2> /dev/null
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml 2> /dev/null
 kubectl apply -f metallb-config.yaml 2> /dev/null
@@ -38,14 +38,15 @@ kubectl apply -f metallb-config.yaml 2> /dev/null
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" 2> /dev/null
 
 # mettre les images en local et a jour :
-printf "========>Linking docker's images to minikube<===========\n\n"
+printf "\n\n========>Linking docker's images to minikube<===========\n\n"
 eval $(minikube -p minikube docker-env)
+printf "done!\n\n"
 
 # installer filezilla pour ftps
-printf "Installing Filezilla to check ftps server (Or maybe is it a virus mouahah)\n"
+printf "=====>Installing Filezilla to check ftps server (Or maybe is it a virus mouahah)<====\n"
 sudo apt install filezilla
 
-printf "========>Building docker's images (see you in two years)<===========\n\n"
+printf "\n\n========>Building docker's images (see you in two years)<===========\n\n"
 printf "building nginx image...\n"
 docker build -t nginx nginx/ &> /dev/null
 printf "image built!\n\n"
@@ -73,7 +74,7 @@ printf "image built!\n\n"
 
 sleep 5
 
-printf "========>Deploying images into cluster<===========\n"
+printf "========>Deploying images into cluster<===========\n\n"
 kubectl create -f ftps/ftps-deployment.yaml &> /dev/null
 kubectl create -f grafana/grafana-deployment.yaml &> /dev/null
 kubectl create -f influxDB/influxdb-deployment.yaml &> /dev/null
