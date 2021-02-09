@@ -28,6 +28,7 @@ COPY /srcs/nginx.conf /etc/nginx/
 COPY /srcs/index.html /www
 COPY /srcs/run_serv.sh /.
 COPY /srcs/test.php /www
+ADD  /srcs/wp-config.php /www/wordpress
 
 EXPOSE 5050
 

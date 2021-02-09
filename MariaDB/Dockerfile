@@ -17,6 +17,7 @@ RUN sed -i 's/skip-networking/# skip-networking/g' /etc/my.cnf.d/mariadb-server.
 COPY srcs/setup.sh /.
 COPY srcs/run_serv.sh /.
 COPY srcs/create_database.sql /.
+ADD srcs/wordpress_save.sql .
 
 EXPOSE 3306
 
