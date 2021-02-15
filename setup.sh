@@ -25,7 +25,7 @@ printf "\n\n========>Launching Minikube!<===========\n\n\n"
 minikube start --driver=docker
 
 # get minikube (true) ip
-CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
+# CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
 
 # deploy metallb
 # add "> /dev/null" to remove info in stdout 
