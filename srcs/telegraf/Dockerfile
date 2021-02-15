@@ -1,7 +1,7 @@
 FROM alpine
 
-COPY    srcs/telegraf.conf ./
-COPY    srcs/run_serv.sh ./
+ADD    srcs/telegraf.conf ./
+ADD    srcs/run_serv.sh ./
 
 RUN		wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.2_linux_amd64.tar.gz \
 		&& tar -zxf telegraf-1.15.2_linux_amd64.tar.gz \

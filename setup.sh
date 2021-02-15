@@ -24,6 +24,12 @@ minikube delete
 printf "\n\n========>Launching Minikube!<===========\n\n\n"
 minikube start --driver=docker
 
+if [ "$?" != 0 ]
+then
+    printf "minikube could not start, please relaunch\n"
+    exit
+fi
+
 # get minikube (true) ip
 # CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
 
@@ -33,13 +39,18 @@ minikube start --driver=docker
 printf "\n\n========>Deploying Metallb<===========\n\n\n"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml 2> /dev/null
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml 2> /dev/null
-kubectl apply -f metallb-config.yaml 2> /dev/null
+kubectl apply -f srcs/metallb-config.yaml 2> /dev/null
 # config secret for metallb
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" 2> /dev/null
 
 # mettre les images en local et a jour :
 printf "\n\n========>Linking docker's images to minikube<===========\n\n"
 eval $(minikube -p minikube docker-env)
+if [ "$?" != 0 ]
+then
+    printf "docker-env crashed, please relaunch\n"
+    exit
+fi
 printf "done!\n\n"
 
 # installer filezilla pour ftps
@@ -48,43 +59,92 @@ sudo apt install filezilla
 
 printf "\n\n========>Building docker's images (see you in two years)<===========\n\n"
 printf "building nginx image...\n"
-docker build -t nginx nginx/ &> /dev/null
-printf "image built!\n\n"
-printf "building grafana image...\n"
-docker build -t img-grafana grafana/ &> /dev/null
-printf "image built!\n\n"
-printf "building influxdb image...\n"
-docker build -t influx influxDB/ &> /dev/null
-printf "image built!\n\n"
-printf "building telegraf image...\n"
-docker build -t img-telegraf telegraf/ &> /dev/null
-printf "image built!\n\n"
-printf "building mariadb image...\n"
-docker build -t mysql-ctn MariaDB/ &> /dev/null
-printf "image built!\n\n"
-printf "building ftps image...\n"
-docker build -t img-ftps ftps/ &> /dev/null
-printf "image built!\n\n"
-printf "building wordpress image...\n"
-docker build -t wp-ctn2 wordpress/ &> /dev/null
-printf "image built!\n\n"
-printf "building phpmyadmin image\n"
-docker build -t pma phpmyadmin/ &> /dev/null
+docker build -t nginx srcs/nginx/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
 printf "image built!\n\n"
 
-sleep 5
+printf "building grafana image...\n"
+docker build -t img-grafana srcs/grafana/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+printf "building influxdb image...\n"
+docker build -t influx srcs/influxDB/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+printf "building telegraf image...\n"
+docker build -t img-telegraf srcs/telegraf/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+printf "building mariadb image...\n"
+docker build -t mysql-ctn srcs/MariaDB/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+printf "building ftps image...\n"
+docker build -t img-ftps srcs/ftps/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+printf "building wordpress image...\n"
+docker build -t wp-ctn2 srcs/wordpress/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+printf "building phpmyadmin image\n"
+docker build -t pma srcs/phpmyadmin/ 2> /dev/null
+if [ "$?" != 0 ]
+then
+    printf "error in building image, please relaunch\n"
+    exit
+fi
+printf "image built!\n\n"
+
+sleep 3
 
 printf "========>Deploying images into cluster<===========\n\n"
-kubectl create -f ftps/ftps-deployment.yaml &> /dev/null
-kubectl create -f influxDB/influxdb-deployment.yaml &> /dev/null
-kubectl create -f telegraf/telegraf-deployment.yaml &> /dev/null
-kubectl create -f grafana/grafana-deployment.yaml &> /dev/null
-kubectl create -f MariaDB/mariadb-deployment.yaml &> /dev/null
-kubectl create -f nginx/nginx-deployment.yaml &> /dev/null
-kubectl create -f phpmyadmin/phpmyadmin-deployment.yaml &> /dev/null
-kubectl create -f wordpress/wordpress-deployment.yaml &> /dev/null
+kubectl create -f srcs/ftps/ftps-deployment.yaml 2> /dev/null
+kubectl create -f srcs/influxDB/influxdb-deployment.yaml 2> /dev/null
+kubectl create -f srcs/telegraf/telegraf-deployment.yaml 2> /dev/null
+kubectl create -f srcs/grafana/grafana-deployment.yaml 2> /dev/null
+kubectl create -f srcs/MariaDB/mariadb-deployment.yaml 2> /dev/null
+kubectl create -f srcs/nginx/nginx-deployment.yaml 2> /dev/null
+kubectl create -f srcs/phpmyadmin/phpmyadmin-deployment.yaml 2> /dev/null
+kubectl create -f srcs/wordpress/wordpress-deployment.yaml 2> /dev/null
 
-printf "Launching Dashboard! *pewwwwiouuuu* (launching sound)\n"
+sleep 3
+
+printf "=====>Launching Dashboard! *pewwwwiouuuu* (launching sound)<========\n"
 minikube dashboard
 
 printf "\ndone!\n"
