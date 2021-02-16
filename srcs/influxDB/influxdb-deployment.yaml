@@ -50,7 +50,13 @@ spec:
       - name: influxdb
         image: influx
         imagePullPolicy: Never
-
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - livenessprobe.sh
+          initialDelaySeconds: 10
+          periodSeconds: 10
         ports:
         - containerPort: 8086
         volumeMounts:

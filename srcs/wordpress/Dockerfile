@@ -29,6 +29,7 @@ COPY /srcs/index.html /www
 COPY /srcs/run_serv.sh /.
 COPY /srcs/test.php /www
 ADD  /srcs/wp-config.php /www/wordpress
+ADD  /srcs/livenessprobe.sh .
 
 EXPOSE 5050
 

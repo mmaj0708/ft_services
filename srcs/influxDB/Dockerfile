@@ -18,5 +18,7 @@ RUN apk add influxdb gettext
 
 EXPOSE 8086
 
+ADD srcs/livenessprobe.sh .
+
 CMD ["/bin/ash", "run_serv.sh"]
 # CMD ["/bin/ash"]

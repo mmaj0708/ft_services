@@ -35,6 +35,8 @@ COPY /srcs/config.inc.php ./
 
 RUN sh install.sh
 
+ADD srcs/livenessprobe.sh .
+
 # EXPOSE 5000
 
 CMD ["/bin/ash", "run_serv.sh"]

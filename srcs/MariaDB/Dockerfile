@@ -21,8 +21,7 @@ ADD srcs/wordpress_save.sql .
 
 EXPOSE 3306
 
-# RUN mysql -u root -p < create_database.sql
-# RUN sh setup.sh
+ADD  srcs/livenessprobe.sh .
 
 CMD ["/bin/ash", "run_serv.sh"]
 # CMD ["/bin/ash"]

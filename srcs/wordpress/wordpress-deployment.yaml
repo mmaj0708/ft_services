@@ -139,6 +139,8 @@ spec:
               command:
               - /bin/ash
               - livenessprobe.sh
+            initialDelaySeconds: 10
+            periodSeconds: 10
           env: 
           - 
             name: DB_NAME

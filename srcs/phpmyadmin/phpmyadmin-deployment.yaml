@@ -19,6 +19,13 @@ spec:
           image: pma
           imagePullPolicy: Never
           name: phpmyadmin
+          livenessProbe:
+            exec:
+              command:
+              - /bin/ash
+              - livenessprobe.sh
+            initialDelaySeconds: 10
+            periodSeconds: 10
           env: 
           - 
             name: PMA_HOST

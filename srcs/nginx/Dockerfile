@@ -27,6 +27,7 @@ COPY /srcs/proxy_params /etc/nginx/
 #ssl key
 RUN openssl req -x509 -nodes -subj '/CN=localhost' -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt
 
+ADD srcs/livenessprobe.sh .
 
 EXPOSE 80
 EXPOSE 443

@@ -118,6 +118,13 @@ spec:
       - name: mysql
         image: mysql-ctn
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - livenessprobe.sh
+          initialDelaySeconds: 10
+          periodSeconds: 10
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: root

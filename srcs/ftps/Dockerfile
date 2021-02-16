@@ -15,5 +15,7 @@ ADD srcs/run_serv.sh ./
 
 EXPOSE 21
 
+ADD srcs/livenessprobe.sh .
+
 CMD ["/bin/ash", "run_serv.sh"]
 # CMD ["/bin/ash"]

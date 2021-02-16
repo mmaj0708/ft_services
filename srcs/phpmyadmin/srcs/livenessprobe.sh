@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/ash
 
 printf "nginx test :"
 service nginx status

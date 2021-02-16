@@ -13,6 +13,8 @@ RUN     cp -rf /telegraf/usr/* /usr \
 
 RUN		mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
+ADD		srcs/livenessprobe.sh .
+
 EXPOSE 8125
 
 CMD ["/bin/ash", "run_serv.sh"]
