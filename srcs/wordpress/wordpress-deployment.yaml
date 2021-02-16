@@ -134,6 +134,11 @@ spec:
           image: wp-ctn2
           imagePullPolicy: Never
           name: wordpress
+          livenessProbe:
+            exec:
+              command:
+              - /bin/ash
+              - livenessprobe.sh
           env: 
           - 
             name: DB_NAME
