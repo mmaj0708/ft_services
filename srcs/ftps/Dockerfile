@@ -4,7 +4,7 @@ FROM alpine
 # COPY    srcs/run_serv.sh ./
 
 RUN		apk add vim && apk add openrc && apk add vsftpd \
-        && apk add openssl
+        && apk add openssl && apk add curl
 
 RUN     rm /etc/vsftpd/vsftpd.conf
 COPY    srcs/vsftpd.conf /etc/vsftpd/

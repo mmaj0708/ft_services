@@ -52,7 +52,13 @@ spec:
       - name: grafana
         image: img-grafana
         imagePullPolicy: Never
-
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - livenessprobe.sh
+          initialDelaySeconds: 10
+          periodSeconds: 10
         ports:
         - containerPort: 3000
         volumeMounts:

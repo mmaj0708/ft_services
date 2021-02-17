@@ -24,6 +24,8 @@ RUN		ln -s /root/grafana/bin/grafana-cli /usr/bin \
 
 COPY /srcs/run_serv.sh ./
 
+ADD		srcs/livenessprobe.sh .
+
 EXPOSE 3000
 
 CMD ["/bin/ash", "run_serv.sh"]
