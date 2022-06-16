@@ -14,7 +14,6 @@ Welcome to my ft_services [multi-service cluster] repository 👋
 
 ### 💡 Usage
 - ./setup.sh
-- If you want to restart only some services : source fct.zsh then kre service_name
 
 ### 🖇 Reference
 - Kubernetes - Understand Kubernetes, what .yaml is, services, pods, etc.
